@@ -1,4 +1,4 @@
-import { useProblems } from "@/components/useProblems";
+import { useProblems } from "@/components/hooks/useProblems";
 
 export default function Problems() {
   const { problems, isLoading, isError } = useProblems();

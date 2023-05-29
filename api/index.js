@@ -37,6 +37,17 @@ app.get("/problems/:id", (req, res) => {
     });
 });
 
+app.post("/problems/:id", (req, res) => {
+  problem_model
+    .updateProblem(req.params.id, req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.post("/problems", (req, res) => {
   problem_model
     .createProblem(req.body)

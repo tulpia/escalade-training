@@ -17,6 +17,7 @@ const getProblems = () => {
     });
   });
 };
+
 const getProblem = (id) => {
   return new Promise(function (resolve, reject) {
     pool.query(
@@ -34,6 +35,7 @@ const getProblem = (id) => {
     );
   });
 };
+
 const createProblem = (body) => {
   return new Promise(function (resolve, reject) {
     const { level, date } = body;
@@ -49,6 +51,23 @@ const createProblem = (body) => {
     );
   });
 };
+
+const updateProblem = (id, body) => {
+  return new Promise(function (resolve, reject) {
+    const { level, tries } = body;
+    pool.query(
+      "UPDATE problems SET level = $1, tries = $2 WHERE id = $3 RETURNING *",
+      [level, tries, id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(results.rows[0]);
+      }
+    );
+  });
+};
+
 const deleteProblem = () => {
   return new Promise(function (resolve, reject) {
     const id = parseInt(request.params.id);
@@ -66,4 +85,5 @@ module.exports = {
   createProblem,
   deleteProblem,
   getProblem,
+  updateProblem,
 };

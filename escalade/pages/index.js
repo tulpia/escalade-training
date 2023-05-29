@@ -1,8 +1,12 @@
-export default function Home() {
+import * as React from "react";
+import { Box, Typography } from "@mui/material";
+
+export default function Index() {
   return (
-    <main>
-      <a href="/problems">Problems</a>
-      <a href="/tractions">tractions</a>
-    </main>
+    <Box sx={{ my: 4 }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Material UI - Next.js example
+      </Typography>
+    </Box>
   );
 }
