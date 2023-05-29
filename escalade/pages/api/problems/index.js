@@ -5,8 +5,28 @@ const getProblems = async () => {
   return res;
 };
 
-export default async function handler(req, res) {
-  const problems = await getProblems();
+const createProblem = async (body) => {
+  const data = await fetch(`http://localhost:3001/problems/`, {
+    body: JSON.stringify(body),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await data.json();
 
-  res.status(200).json(problems);
+  return res;
+};
+
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    const { body } = req;
+    const problems = await createProblem(body);
+
+    res.status(200).json(problems);
+  } else {
+    const problems = await getProblems();
+
+    res.status(200).json(problems);
+  }
 }

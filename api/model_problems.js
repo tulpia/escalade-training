@@ -38,15 +38,15 @@ const getProblem = (id) => {
 
 const createProblem = (body) => {
   return new Promise(function (resolve, reject) {
-    const { level, date } = body;
+    const { level, tries, date } = body;
     pool.query(
-      "INSERT INTO problems (level, date) VALUES ($1, $2) RETURNING *",
-      [level, date],
+      "INSERT INTO problems (level, tries, date) VALUES ($1, $2, $3) RETURNING *",
+      [level, tries, date],
       (error, results) => {
         if (error) {
           reject(error);
         }
-        resolve(`A new problem has been added added: ${results.rows[0]}`);
+        resolve(results.rows[0]);
       }
     );
   });

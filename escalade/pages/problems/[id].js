@@ -38,7 +38,6 @@ export default function Problem() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setIsSaving(false);
         setIsSaved(true);
       });
@@ -123,11 +122,11 @@ export default function Problem() {
               </Button>
             )}
           </Grid>
-          {isSaved && (
+          {isSaved ? (
             <Grid item xs={4}>
               <Alert severity="success">Informations sauvegardées</Alert>
             </Grid>
-          )}
+          ) : null}
         </Grid>
       </form>
     </Box>
