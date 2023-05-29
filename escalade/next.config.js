@@ -6,6 +6,8 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
+  transpilePackages: ["@nivo"],
+  experimental: { esmExternals: "loose" },
 };
 
 module.exports = nextConfig;
