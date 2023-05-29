@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3001;
 
-const problem_model = require("./model_problems");
+const problem_model = require("./src/problems");
+const traction_model = require("./src/tractions");
 
 app.use(express.json());
 app.use(function (req, res, next) {
@@ -69,6 +70,63 @@ app.delete("/problems/:id", (req, res) => {
       res.status(500).send(error);
     });
 });
+
+// Tractions
+app.get("/tractions", (req, res) => {
+  traction_model
+    .getTractions()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.get("/tractions/:id", (req, res) => {
+  traction_model
+    .getTraction(req.params.id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.post("/tractions/:id", (req, res) => {
+  traction_model
+    .updateTraction(req.params.id, req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.post("/tractions", (req, res) => {
+  traction_model
+    .createTraction(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.delete("/tractions/:id", (req, res) => {
+  traction_model
+    .deleteTraction(req.params.id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
